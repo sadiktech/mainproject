@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
+	<vm:config name="VM_Config" doc:name="VM Config" doc:id="b4ed840e-1246-49bd-8a9b-4927751b4f6d" >
+		<vm:queues >
+			<vm:queue queueName="sharedQueue" />
+		</vm:queues>
+	</vm:config>
+	<sub-flow name="shared_Flow_One" doc:id="886571e0-3393-418b-b71c-3073ca4e12a3" >
+		<logger level="INFO" doc:name="Logger" doc:id="422b5a4e-9004-4cf7-b257-6ad4bc3445b7" message='#["shared_Flow_One"]'/>
+	</sub-flow>
+	<flow name="vmSubfloShared" doc:id="9652ccba-46ba-40fa-b5d5-2643a8f22566" >
+		<vm:listener queueName="sharedQueue" doc:name="Listener" doc:id="b97e542e-ebcf-4167-bd32-dc11d7253215" config-ref="VM_Config"/>
+		<logger level="INFO" doc:name="Logger" doc:id="20c45f9a-7cbf-4a47-b3f6-3c335816c7dc" message="This is Vm consumer log : #[payload]"/>
+	</flow>
+</mule>
